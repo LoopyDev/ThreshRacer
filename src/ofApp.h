@@ -82,6 +82,18 @@ private:
 	ofxDatGuiButton * startRoundButton = nullptr;
 	ofxDatGuiLabel * roundStatusLabel = nullptr;
 
+	// Camera flip
+	bool flipCameraY = false; // default off
+	bool flipCameraX = false; // default off
+	ofxDatGuiToggle * flipCamYToggle = nullptr;
+	ofxDatGuiToggle * flipCamXToggle = nullptr;
+
+
+	// Working camera data (for optional flipped copy)
+	ofPixels currentFrame;
+	ofTexture camTexture;
+
+
 	void setupGuiPages();
 	void setActivePage(int page);
 

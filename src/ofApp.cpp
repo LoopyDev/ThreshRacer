@@ -55,8 +55,13 @@ void ofApp::setupGuiPages() {
 	guiPage2->addBreak();
 	guiPage2->addLabel("Motion Parameters");
 
+	// Flip camera options
+	flipCamYToggle = guiPage2->addToggle("Flip camera Y", flipCameraY);
+	flipCamXToggle = guiPage2->addToggle("Flip camera X", flipCameraX);
+
 	thresholdSlider = guiPage2->addSlider("Threshold", 0.0f, 128.0f, motionThreshold);
 	thresholdSlider->setPrecision(0);
+
 
 	smoothingSlider = guiPage2->addSlider("Smoothing", 0.0f, 1.0f, smoothing);
 	smoothingSlider->setPrecision(2);
@@ -150,29 +155,62 @@ void ofApp::update() {
 		if (rightGainSlider) {
 			progressGainRight = rightGainSlider->getValue();
 		}
+		if (flipCamYToggle) {
+			flipCameraY = flipCamYToggle->getChecked();
+		}
+		if (flipCamXToggle) {
+			flipCameraX = flipCamXToggle->getChecked();
+		}
 
 		computeMotion();
 		updateGuiLabels();
 	}
+
+
+
 
 	updateRoundStatus();
 }
 
 //--------------------------------------------------------------
 void ofApp::computeMotion() {
-	ofPixels & cur = cam.getPixels();
-	if (!cur.isAllocated()) return;
+	ofPixels & src = cam.getPixels();
+	if (!src.isAllocated()) return;
 
-	int w = cur.getWidth();
-	int h = cur.getHeight();
-	int channels = cur.getNumChannels();
+	int w = src.getWidth();
+	int h = src.getHeight();
+	int channels = src.getNumChannels();
 
-	if (!prevFrame.isAllocated()) {
-		prevFrame = cur;
+	// Allocate working frame if needed
+	if (!currentFrame.isAllocated() || currentFrame.getWidth() != w || currentFrame.getHeight() != h || currentFrame.getNumChannels() != channels) {
+		currentFrame.allocate(w, h, channels);
+	}
+
+	// Copy camera pixels into working buffer
+	currentFrame = src;
+
+	// Optionally flip in X and/or Y
+	bool doV = flipCameraY;
+	bool doH = flipCameraX;
+	if (doV || doH) {
+		// mirror(vertically, horizontally)
+		currentFrame.mirror(doV, doH);
+	}
+
+	// Allocate prev frame if first run
+	if (!prevFrame.isAllocated() || prevFrame.getWidth() != w || prevFrame.getHeight() != h || prevFrame.getNumChannels() != channels) {
+		prevFrame.allocate(w, h, channels);
+		prevFrame = currentFrame;
 		hasPrevFrame = true;
+
+		if (!camTexture.isAllocated()) {
+			camTexture.allocate(w, h, GL_RGB);
+		}
+		camTexture.loadData(currentFrame);
 		return;
 	}
 
+	// Allocate diff pixels if needed
 	if (!diffPixels.isAllocated() || diffPixels.getWidth() != w || diffPixels.getHeight() != h || diffPixels.getNumChannels() != channels) {
 		diffPixels.allocate(w, h, channels);
 	}
@@ -180,17 +218,21 @@ void ofApp::computeMotion() {
 	float frameLeftSum = 0.0f;
 	float frameRightSum = 0.0f;
 
+	unsigned char * curPix = currentFrame.getData();
+	unsigned char * prevPix = prevFrame.getData();
+	unsigned char * diffPix = diffPixels.getData();
+
 	for (int y = 0; y < h; ++y) {
 		for (int x = 0; x < w; ++x) {
 			int idx = (y * w + x) * channels;
 
-			unsigned char rCur = cur[idx + 0];
-			unsigned char gCur = cur[idx + 1];
-			unsigned char bCur = cur[idx + 2];
+			unsigned char rCur = curPix[idx + 0];
+			unsigned char gCur = curPix[idx + 1];
+			unsigned char bCur = curPix[idx + 2];
 
-			unsigned char rPrev = prevFrame[idx + 0];
-			unsigned char gPrev = prevFrame[idx + 1];
-			unsigned char bPrev = prevFrame[idx + 2];
+			unsigned char rPrev = prevPix[idx + 0];
+			unsigned char gPrev = prevPix[idx + 1];
+			unsigned char bPrev = prevPix[idx + 2];
 
 			int dR = abs((int)rCur - (int)rPrev);
 			int dG = abs((int)gCur - (int)gPrev);
@@ -201,9 +243,9 @@ void ofApp::computeMotion() {
 			bool isMotion = d > motionThreshold;
 
 			unsigned char out = isMotion ? 255 : 0;
-			diffPixels[idx + 0] = out;
-			diffPixels[idx + 1] = out;
-			diffPixels[idx + 2] = out;
+			diffPix[idx + 0] = out;
+			diffPix[idx + 1] = out;
+			diffPix[idx + 2] = out;
 
 			if (isMotion) {
 				bool inLeft = lanePolys[0].size() > 0 && lanePolys[0].inside(x, y);
@@ -231,11 +273,11 @@ void ofApp::computeMotion() {
 		rightNorm = frameRightSum / maxRight;
 	}
 
-	// Smooth *instant* scores (for live “who’s stronger now”)
+	// Smooth scores
 	leftScore = ofLerp(leftScore, leftNorm, smoothing);
 	rightScore = ofLerp(rightScore, rightNorm, smoothing);
 
-	// Progress accumulation when race is active (per-lane gains)
+	// Progress accumulation when race is active
 	if (roundActive) {
 		progressLeft = ofClamp(progressLeft + leftNorm * progressGainLeft, 0.0f, 1.0f);
 		progressRight = ofClamp(progressRight + rightNorm * progressGainRight, 0.0f, 1.0f);
@@ -246,8 +288,15 @@ void ofApp::computeMotion() {
 	}
 
 	// Store current as previous
-	prevFrame = cur;
+	prevFrame = currentFrame;
+
+	// Update camera texture for drawing
+	if (!camTexture.isAllocated()) {
+		camTexture.allocate(w, h, GL_RGB);
+	}
+	camTexture.loadData(currentFrame);
 }
+
 
 //--------------------------------------------------------------
 void ofApp::updateGuiLabels() {
@@ -303,7 +352,13 @@ void ofApp::draw() {
 	ofBackground(0);
 
 	// Draw camera
-	cam.draw(0, 0, camWidth, camHeight);
+	// Draw camera (optionally flipped via currentFrame -> camTexture)
+	if (camTexture.isAllocated()) {
+		camTexture.draw(0, 0, camWidth, camHeight);
+	} else {
+		// Fallback for very first frame
+		cam.draw(0, 0, camWidth, camHeight);
+	}
 
 	ofPushStyle();
 
