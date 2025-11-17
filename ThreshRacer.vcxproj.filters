@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui-LoopyDev\src\core\ofxDatGuiComponent.cpp">
+			<Filter>addons\ofxDatGui-LoopyDev\src\core</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui-LoopyDev\src\libs\ofxSmartFont\ofxSmartFont.cpp">
+			<Filter>addons\ofxDatGui-LoopyDev\src\libs\ofxSmartFont</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxDatGui-LoopyDev\src\ofxDatGui.cpp">
+			<Filter>addons\ofxDatGui-LoopyDev\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{B170F33B--6F7-9-42-37-A-6E0-4C3F17988D6E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev">
+			<UniqueIdentifier>{3478B003--76A-7-4E-6A-A-A5E-FE684ED7AB28}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src">
+			<UniqueIdentifier>{EDAA7267--F4B-E-40-89-B-CD2-892F1AF9535B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src\components">
+			<UniqueIdentifier>{3D58D334--43C-6-47-B2-A-F2C-F812A2043224}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src\core">
+			<UniqueIdentifier>{1E70D1E2--35C-7-4E-53-B-828-8C2ADAC71765}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src\libs">
+			<UniqueIdentifier>{BF0DFBA7--940-1-4E-6F-B-1C6-C4C78CCA0ECE}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src\libs\ofxSmartFont">
+			<UniqueIdentifier>{96889EFF--610-4-4B-79-9-DD2-B4B45687CA82}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxDatGui-LoopyDev\src\themes">
+			<UniqueIdentifier>{0A412D42--F16-6-4F-D5-8-071-44D3179B3816}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGui2dPad.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiButton.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiColorPicker.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiControls.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiCubicBezier.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiCurveEditor.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiDropdown.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiFRM.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiGroups.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiLabel.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiMatrix.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiRadioGroup.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiScrollView.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiSlider.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiTextInput.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiTextInputField.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\components\ofxDatGuiTimeGraph.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\components</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\core\ofxDatGuiComponent.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\core\ofxDatGuiConstants.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\core\ofxDatGuiEvents.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\core\ofxDatGuiIntObject.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\core</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\libs\ofxSmartFont\ofxSmartFont.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\libs\ofxSmartFont</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\ofxDatGui.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\themes\ofxDatGuiTheme.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\themes</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxDatGui-LoopyDev\src\themes\ofxDatGuiThemes.h">
+			<Filter>addons\ofxDatGui-LoopyDev\src\themes</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>

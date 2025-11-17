@@ -1,0 +1,18 @@
+# Visual Studio junk
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+obj/
+*.exe
+*.pdb
+*.ilk
+
+# OpenFrameworks generated stuff
+*.opensdf
+*.sdf
+*.ipdb
+*.iobj
